@@ -382,7 +382,7 @@ export default function BasketPage() {
         <div style={styles.headerContent}>
           <div style={styles.logo}>
             <Sparkles color="#c084fc" size={32} />
-            <h1 style={styles.logoText}>CloudMatrixtestjenkins</h1>
+            <h1 style={styles.logoText}>CloudMatrix</h1>
           </div>
           <a
             href="/"
