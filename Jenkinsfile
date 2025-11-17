@@ -2,9 +2,7 @@ pipeline {
     agent any
     
     environment {
-        DOCKERHUB_CREDENTIALS = 'dockerhub-credentials'
-        IMAGE_BASKET = 'koussayoune/projet:basket'
-        IMAGE_CATALOG = 'koussayoune/projet:catalog'
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
     }
     
     stages {
@@ -14,32 +12,34 @@ pipeline {
             }
         }
         
-        stage('Build Docker Images') {
+        stage('Docker Login') {
             steps {
-                sh 'docker compose build'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
         
-        stage('Push to Docker Hub') {
+        stage('Pull Docker Images') {
             steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
-                        sh "docker push ${IMAGE_BASKET}"
-                        sh "docker push ${IMAGE_CATALOG}"
-                    }
-                }
+                sh 'docker compose pull'
             }
         }
         
-        stage('Cleanup') {
+        stage('Deploy Services') {
             steps {
-                sh 'docker compose down --rmi local || true'
+                sh 'docker compose up -d'
+            }
+        }
+        
+        stage('Verify Deployment') {
+            steps {
+                sh 'docker compose ps'
             }
         }
     }
     
     post {
         always {
+            sh 'docker logout'
             echo 'Pipeline finished!'
         }
     }
