@@ -24,8 +24,8 @@ pipeline {
                 sh '''
                     docker build -t ${DOCKERHUB_REPO}:catalogapi -f src/Catalog/Catalog.API/Dockerfile .
                     docker build -t ${DOCKERHUB_REPO}:basketapi -f src/Basket/Basket.API/Dockerfile .
-                    docker build -t ${DOCKERHUB_REPO}:frontend-catalog -f src/Frontend/Catalog/Dockerfile .
-                    docker build -t ${DOCKERHUB_REPO}:frontend-basket -f src/Frontend/Basket/Dockerfile .
+                    docker build -t ${DOCKERHUB_REPO}:frontend-catalog -f frontend-catalog/Dockerfile ./frontend-catalog/
+                    docker build -t ${DOCKERHUB_REPO}:frontend-basket -f frontend-basket/Dockerfile ./frontend-basket/
                 '''
             }
         }
