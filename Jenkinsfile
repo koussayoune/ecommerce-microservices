@@ -20,7 +20,10 @@ pipeline {
         
         stage('Stop Old Containers') {
             steps {
-                sh 'docker compose down || true'
+                sh '''
+                    docker compose down || true
+                    docker rm -f catalogapi basketapi frontend-catalog frontend-basket || true
+                '''
             }
         }
         
