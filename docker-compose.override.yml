@@ -47,3 +47,21 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  frontend-basket:
+    build:
+      context: ./frontend-basket
+      dockerfile: Dockerfile
+    ports:
+      - "8002:80"
+    depends_on:
+      - basket.api
+
+  frontend-catalog:
+    build:
+      context: ./frontend-catalog
+      dockerfile: Dockerfile
+    ports:
+      - "8003:80"
+    depends_on:
+      - catalog.api

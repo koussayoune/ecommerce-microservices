@@ -5,6 +5,7 @@ using EventBusRabbitMQ.Common;
 using EventBusRabbitMQ.Events;
 using EventBusRabbitMQ.Producers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
@@ -14,6 +15,7 @@ namespace Basket.API.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [EnableCors("AllowAll")]
     public class BasketController : ControllerBase
     {
         private readonly IBasketRepository _repository;
