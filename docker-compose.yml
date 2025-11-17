@@ -1,4 +1,4 @@
-version: '3.4'
+
 
 services:
 
@@ -11,14 +11,57 @@ services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
 
+  
   catalog.api:
-    image: ${DOCKER_REGISTRY-}catalogapi
-    build:
-      context: .
-      dockerfile: src/Catalog/Catalog.API/Dockerfile
+    image: koussayoune/projet:catalogapi
+    container_name: catalogapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "CatalogDatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
+    depends_on:
+      - catalogdb
+    ports:
+      - "8000:80"
 
   basket.api:
-    image: ${DOCKER_REGISTRY-}basketapi
-    build:
-      context: .
-      dockerfile: src/Basket/Basket.API/Dockerfile
+    image: koussayoune/projet:basketapi
+    container_name: basketapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:Redis=basketdb:6379"
+      - "EventBus:HostName=rabbitmq"
+    depends_on:
+      - basketdb
+      - rabbitmq
+    ports:
+      - "8001:80"
+
+  frontend-basket:
+    image: koussayoune/projet:frontend-basket
+    container_name: frontend-basket
+    depends_on:
+      - basket.api
+    ports:
+      - "8002:80"
+
+  frontend-catalog:
+    image: koussayoune/projet:frontend-catalog
+    container_name: frontend-catalog
+    depends_on:
+      - catalog.api
+    ports:
+      - "8003:80"
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    privileged: true
+    user: root
+    ports:
+      - "8082:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - jenkins-data:/var/jenkins_home
+
+volumes:
+  jenkins-data:

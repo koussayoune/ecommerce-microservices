@@ -335,7 +335,7 @@ const styles = {
     gap: '16px',
   },
   basketItemImage: {
-    width: '80px',
+    width: '81px',
     height: '80px',
     objectFit: 'cover',
     borderRadius: '8px',
