@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/koussayoune-ship-it/ecommerce-microservices.git'
+                git 'https://github.com/koussayoune/ecommerce-microservices.git'
             }
         }
 
