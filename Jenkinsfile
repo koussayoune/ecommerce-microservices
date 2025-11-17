@@ -18,6 +18,12 @@ pipeline {
             }
         }
         
+        stage('Stop Old Containers') {
+            steps {
+                sh 'docker compose down || true'
+            }
+        }
+        
         stage('Pull Docker Images') {
             steps {
                 sh 'docker compose pull'
@@ -41,6 +47,12 @@ pipeline {
         always {
             sh 'docker logout'
             echo 'Pipeline finished!'
+        }
+        success {
+            echo 'Deployment successful!'
+        }
+        failure {
+            echo 'Deployment failed!'
         }
     }
 }
