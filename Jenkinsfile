@@ -10,15 +10,13 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/koussayoune/ecommerce-microservices.git'
+                git branch: 'main', url: 'https://github.com/koussayoune/ecommerce-microservices.git'
             }
         }
 
         stage('Build Docker Images') {
             steps {
-                script {
-                    sh 'docker-compose build'
-                }
+                sh 'docker-compose build'
             }
         }
 
