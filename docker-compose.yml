@@ -60,7 +60,7 @@ services:
     volumes:
       -  ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
     networks:
-      - default
+      - pipeline_default
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
 
