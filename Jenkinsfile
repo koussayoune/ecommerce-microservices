@@ -45,7 +45,7 @@ pipeline {
             steps {
                 sh '''
                     docker compose down || true
-                    docker rm -f catalogapi basketapi frontend-catalog frontend-basket || true
+                    docker rm -f catalogapi basketapi frontend-catalog frontend-basket prometheus || true
                 '''
             }
         }
