@@ -1,11 +1,7 @@
 global:
-  scrape_interval: 5s
+    scrape_interval: 15s 
 
 scrape_configs:
-  - job_name: 'catalogapi'
+  - job_name: 'prometheus'
     static_configs:
-      - targets: ['catalog.api:8080']
-
-  - job_name: 'basketapi'
-    static_configs:
-      - targets: ['basket.api:8080']
+      - targets: ['localhost:9090']
