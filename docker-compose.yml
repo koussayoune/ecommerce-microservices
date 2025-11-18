@@ -59,9 +59,9 @@ services:
       - "9090:9090"
     volumes:
       -  /var/jenkins_home/prometheus-config/prometheus.yml:/etc/prometheus/prometheus.yml
-      
+
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
     networks:
       pipeline_default:
-      external: true
+        external: true
