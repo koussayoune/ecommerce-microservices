@@ -62,6 +62,6 @@ services:
 
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
-    networks:
-      pipeline_default:
-        external: true
+networks:
+  pipeline_default:
+    external: true
