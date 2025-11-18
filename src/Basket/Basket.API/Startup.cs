@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Prometheus;
 using Basket.API.Data;
 using Basket.API.Data.Interfaces;
 using Basket.API.Repositories;
@@ -101,6 +102,10 @@ namespace Basket.API
             app.UseCors("AllowAll");
             
             app.UseAuthorization();
+
+            app.UseMetricServer();   
+
+            app.UseHttpMetrics(); 
 
             app.UseEndpoints(endpoints =>
             {

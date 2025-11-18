@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Catalog.API.Data;
+using Prometheus;
 using Catalog.API.Data.Interfaces;
 using Catalog.API.Repositories;
 using Catalog.API.Repositories.Interfaces;
@@ -70,6 +71,10 @@ namespace Catalog.API
             app.UseCors("AllowAll");
 
             app.UseAuthorization();
+
+            app.UseMetricServer();   
+
+            app.UseHttpMetrics(); 
 
             app.UseEndpoints(endpoints =>
             {
