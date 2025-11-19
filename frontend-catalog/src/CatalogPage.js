@@ -532,7 +532,7 @@ export default function CatalogPage() {
         <div style={styles.headerContent}>
           <div style={styles.logo}>
             <Sparkles color="#c084fc" size={32} />
-            <h1 style={styles.logoText}>CloudMatrix</h1>
+            <h1 style={styles.logoText}>CloudMatrixtest</h1>
           </div>
           <button
             onClick={() => setShowBasket(!showBasket)}
